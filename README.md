@@ -15,10 +15,12 @@
 
 ## Стек технологий
 
-- **React** 18.2.0
-- **Vite** 5.0.0 (сборщик)
-- **react-router-dom** 6.x (маршрутизация)
-- **CSS3** (без UI-библиотек, согласно ТЗ)
+- **React** 19.2.x
+- **React DOM** 19.2.x
+- **Vite** 8.x (сборщик)
+- **react-router-dom** 7.x
+- **Oxlint** (линтер)
+- **CSS3** (без сторонних UI-библиотек)
 
 ## Требования
 
@@ -27,22 +29,78 @@
 
 Проверить версии:
 
-``node -v``
-
-`` npm -v``
+```bash
+node -v
+npm -v
+```
 
 ## Установка и запуск
 
 ### 1. Клонировать репозиторий
 
-``git clone https://github.com/твой-username/rpi_laba3.git``
-
-``cd rpi_laba3``
+```bash
+git clone https://github.com/Aliya-aaa/rpi_laba3.git
+cd rpi_laba3
+```
 
 ### 2. Установить зависимости
 
-``npm install``
+```bash
+npm install
+```
 
 ### 3. Запустить dev-сервер
 
-``npm run dev``
+```bash
+npm run dev
+```
+
+Сайт будет доступен по адресу: [http://localhost:5173/](http://localhost:5173/)
+
+### 4. Дополнительные команды
+
+```bash
+npm run build   # Сборка проекта для продакшена
+npm run lint    # Проверка кода линтером oxlint
+```
+
+## Структура папок
+
+```text
+rpi_laba3/
+├── public/                 # Статические файлы (favicon, иконки)
+├── src/
+│   ├── assets/             # Изображения и векторная графика
+│   ├── components/         # Переиспользуемые React-компоненты
+│   │   ├── ApplicationModal.jsx  # Модальная форма заявки (useId, htmlFor)
+│   │   ├── Header.jsx            # Шапка сайта и навигация
+│   │   ├── HeroSection.jsx       # Главный промо-блок
+│   │   ├── TeacherCard.jsx       # Карточка преподавателя
+│   │   └── logo.jsx              # Логотип
+│   ├── data/               # Мок-данные проекта
+│   │   └── teachers.js     # База лекторов, курсов и тарифов
+│   ├── pages/              # Страницы приложения
+│   │   ├── HomePage.jsx          # Главная страница
+│   │   ├── TeachersPage.jsx      # Каталог лекторов
+│   │   ├── LecturerDetailPage.jsx # Страница детальной информации лектора
+│   │   └── NotFound.jsx          # 404 страница
+│   ├── App.css             # Стили корневого компонента
+│   ├── App.jsx             # Корневой компонент (состояние страниц и модалки)
+│   ├── index.css           # Базовые глобальные стили
+│   ├── main.jsx            # Точка входа React (React.StrictMode, BrowserRouter)
+│   └── styles.css          # Основные стили компонентов и страниц
+├── index.html              # HTML-шаблон
+├── package.json            # Зависимости и скрипты
+└── vite.config.js          # Конфигурация Vite
+```
+
+## Где лежат данные и роутинг
+
+- **Где лежат данные:**
+  - `src/data/teachers.js` — каталог из 10 лекторов с полной информацией: степени, стаж, образование, список дисциплин и тарифы (индивидуальные / пакетные).
+  - Список партнёров хранится в компоненте `src/pages/HomePage.jsx`.
+  - Заявки из формы сохраняются в `localStorage` (ключ `'applications'`).
+
+- **Где настроен роутинг:**
+  - Обёртка `BrowserRouter` подключена в точке входа `src/main.jsx`.
+  - Навигация между страницами («Главная», «Лекторы», скролл к секциям «О нас» и «Партнёры») реализована в `src/App.jsx` через стейт `currentPage` и функции `handleNavigate` / `goToSection`, передаваемые в компонент `Header`.
