@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 
 export default function ApplicationModal({ isOpen, onClose }) {
   const [form, setForm] = useState({ name: '', contact: '', message: '' });
   const [sent, setSent] = useState(false);
+
+  const nameId = useId();
+  const contactId = useId();
+  const messageId = useId();
 
   // Блокируем скролл страницы, пока открыта модалка
   useEffect(() => {
@@ -83,9 +87,13 @@ export default function ApplicationModal({ isOpen, onClose }) {
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '16px' }}>
-              <label style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}>
+              <label
+                htmlFor={nameId}
+                style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}
+              >
                 Как к вам обращаться?
                 <input
+                  id={nameId}
                   name="name"
                   required
                   value={form.name}
@@ -95,9 +103,13 @@ export default function ApplicationModal({ isOpen, onClose }) {
                 />
               </label>
 
-              <label style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}>
+              <label
+                htmlFor={contactId}
+                style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}
+              >
                 Телефон или e-mail
                 <input
+                  id={contactId}
                   name="contact"
                   required
                   value={form.contact}
@@ -107,9 +119,13 @@ export default function ApplicationModal({ isOpen, onClose }) {
                 />
               </label>
 
-              <label style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}>
+              <label
+                htmlFor={messageId}
+                style={{ display: 'grid', gap: '6px', fontSize: '14px', fontWeight: '600' }}
+              >
                 Чему хотите научиться?
                 <textarea
+                  id={messageId}
                   name="message"
                   value={form.message}
                   onChange={handleChange}

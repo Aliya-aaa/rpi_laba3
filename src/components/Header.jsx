@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header({ currentPage, onNavigate, onSectionClick }) {
+function Header({ currentPage, onNavigate, onSectionClick, onOpenModal }) {
   return (
     <header style={styles.header}>
       <nav style={styles.nav}>
@@ -28,6 +28,14 @@ function Header({ currentPage, onNavigate, onSectionClick }) {
         >
           Лекторы
         </button>
+        {onOpenModal && (
+          <button 
+            style={styles.modalBtn}
+            onClick={onOpenModal}
+          >
+            Оставить заявку
+          </button>
+        )}
       </nav>
     </header>
   );
@@ -45,8 +53,22 @@ const styles = {
   },
   nav: {
     display: 'flex',
-    gap: '30px',
+    gap: '20px',
+    alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  modalBtn: {
+    marginLeft: 'auto',
+    background: '#ffffff',
+    color: '#4f46e5',
+    border: 'none',
+    borderRadius: '10px',
+    padding: '10px 18px',
+    fontSize: '15px',
+    fontWeight: '700',
+    cursor: 'pointer',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+    transition: 'transform 0.15s',
   },
   link: {
     background: 'none',

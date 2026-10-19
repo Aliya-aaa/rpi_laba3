@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import TeachersPage from './pages/TeachersPage';
+import ApplicationModal from './components/ApplicationModal';
 import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Обычная навигация между страницами
   const handleNavigate = (page) => {
@@ -39,15 +41,25 @@ function App() {
 
   return (
     <div className="App">
-      {/* ИСПРАВЛЕНО: передали onSectionClick в Header */}
       <Header
         currentPage={currentPage}
         onNavigate={handleNavigate}
         onSectionClick={goToSection}
+        onOpenModal={() => setIsModalOpen(true)}
       />
 
       {currentPage === 'home' && <HomePage onFindTeacher={handleFindTeacher} />}
-      {currentPage === 'teachers' && <TeachersPage onTeacherClick={handleTeacherClick} />}
+      {currentPage === 'teachers' && (
+        <TeachersPage
+          onTeacherClick={handleTeacherClick}
+          onOpenModal={() => setIsModalOpen(true)}
+        />
+      )}
+
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
